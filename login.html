@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surf Admin Login</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+/* ===== RESET ===== */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, Helvetica, sans-serif;
+}
+body{
+  background:#0b0f14; /* Dark page background */
+  color:#fff;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+/* ===== LOGIN CARD ===== */
+.login-card{
+  background:#1f2937; /* Dark card background */
+  padding:50px 40px;
+  border-radius:12px;
+  box-shadow:0 5px 25px rgba(0,0,0,0.3);
+  width:100%;
+  max-width:400px;
+  text-align:center;
+  color:#fff;
+}
+
+.login-card img{
+  width:120px;
+  margin-bottom:25px;
+  filter: brightness(0) invert(1); /* Makes logo visible on dark bg */
+}
+
+.login-card h2{
+  margin-bottom:20px;
+  font-size:24px;
+  color:#fff;
+}
+
+.login-card p{
+  font-size:14px;
+  color:#cbd5e1;
+  margin-bottom:25px;
+}
+
+/* ===== FORM ===== */
+.login-card form{
+  display:flex;
+  flex-direction:column;
+   margin-bottom:25px;
+}
+
+.login-card input[type="text"],
+.login-card input[type="password"]{
+  padding:12px 15px;
+  margin-bottom:15px;
+  border-radius:8px;
+  border:1px solid #374151;
+  background:#111827;
+  color:#fff;
+  font-size:14px;
+}
+
+.login-card input[type="text"]::placeholder,
+.login-card input[type="password"]::placeholder{
+  color:#9ca3af;
+}
+
+.login-card input[type="text"]:focus,
+.login-card input[type="password"]:focus{
+  outline:none;
+  border-color:#3b82f6;
+}
+
+.login-card button{
+  padding:12px;
+  border:none;
+  background:#3b82f6;
+  color:#fff;
+  font-size:16px;
+  border-radius:8px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.login-card button:hover{
+  background:#2563eb;
+}
+
+/* ===== LINKS ===== */
+.login-card .forgot,
+.login-card .register-link{
+  display:block;
+  font-size:13px;
+  color:#9ca3af;
+  margin-top:12px;
+  text-decoration:none;
+}
+
+.login-card .forgot:hover,
+.login-card .register-link:hover{
+  color:#fff;
+}
+
+/* ===== MOBILE ===== */
+@media(max-width:480px){
+  .login-card{
+    padding:40px 20px;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="login-card">
+   <div class="site-logo">
+    <a href="index.html">
+        <img src="images/surf-logo.png" alt="Surf Logo">
+    </a>
+</div>
+  <h2>Admin Login</h2>
+  <p>Enter your credentials to access the dashboard</p>
+  
+  <form action="dashboard.html" method="post">
+    <input type="text" name="username" placeholder="Username" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <button type="submit"><i class="fa fa-sign-in"></i> Login</button>
+  </form>
+
+  <a href="#" class="forgot">Forgot password?</a>
+  <a href="register.html" class="register-link">Don't have an account? Register</a>
+</div>
+
+</body>
+</html>
