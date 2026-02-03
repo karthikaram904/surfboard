@@ -2750,3 +2750,9 @@ direction: initial;
   font-size: 15px;
   font-weight: 600;
 }
+.dark .surf-page .site-section {
+  background: none !important;
+}
+.dark.surf-page h2,.dark.surf-page .how-work-sec .caption,.dark.surf-page .how-work-sec p{
+  color: #fff !important;
+  }
