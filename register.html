@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="images/favicon.png">
+<title>Surf Admin Register</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+/* ===== RESET ===== */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, Helvetica, sans-serif;
+}
+body{
+  background:#0b0f14; /* Dark background */
+  color:#fff;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+/* ===== REGISTER CARD ===== */
+.register-card{
+  background:#1f2937; /* Dark card background */
+  padding:50px 40px;
+  border-radius:12px;
+  box-shadow:0 5px 25px rgba(0,0,0,0.3);
+  width:100%;
+  max-width:400px;
+  text-align:center;
+}
+
+.register-card img{
+  width:120px;
+  margin-bottom:25px;
+  filter: brightness(0) invert(1); /* Makes logo visible on dark bg */
+}
+
+.register-card h2{
+  margin-bottom:20px;
+  font-size:24px;
+  color:#fff;
+}
+
+.register-card p{
+  font-size:14px;
+  color:#cbd5e1;
+  margin-bottom:25px;
+}
+
+/* ===== FORM ===== */
+.register-card form{
+  display:flex;
+  flex-direction:column;
+   margin-bottom:25px;
+}
+
+.register-card input[type="text"],
+.register-card input[type="email"],
+.register-card input[type="password"]{
+  padding:12px 15px;
+  margin-bottom:15px;
+  border-radius:8px;
+  border:1px solid #374151;
+  background:#111827;
+  color:#fff;
+  font-size:14px;
+}
+
+.register-card input::placeholder{
+  color:#9ca3af;
+}
+
+.register-card input:focus{
+  outline:none;
+  border-color:#3b82f6;
+}
+
+.register-card button{
+  padding:12px;
+  border:none;
+  background:#3b82f6;
+  color:#fff;
+  font-size:16px;
+  border-radius:8px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.register-card button:hover{
+  background:#2563eb;
+}
+
+.register-card .login-link{
+  font-size:13px;
+  color:#9ca3af;
+  margin-top:12px;
+  text-decoration:none;
+}
+
+.register-card .login-link:hover{
+  color:#fff;
+}
+
+/* ===== MOBILE ===== */
+@media(max-width:480px){
+  .register-card{
+    padding:40px 20px;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="register-card">
+  <div class="site-logo">
+    <a href="index.html">
+        <img src="images/surf-logo.png" alt="Surf Logo">
+    </a>
+</div>
+  <h2>Create Account</h2>
+  <p>Fill in the details to register as a new admin</p>
+  
+  <form action="dashboard.html" method="post">
+    <input type="text" name="username" placeholder="Username" required>
+    <input type="email" name="email" placeholder="Email Address" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+    <button type="submit"><i class="fa fa-user-plus"></i> Register</button>
+  </form>
+
+  <a href="login.html" class="login-link">Already have an account? Login</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Bookings Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="images/favicon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+/* ===== RESET ===== */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, Helvetica, sans-serif;
+}
+body{
+  background:#f4f6f9;
+  color:#333;
+}
+
+/* ===== LAYOUT ===== */
+.dashboard-wrapper{
+  display:flex;
+  min-height:100vh;
+}
+
+/* ===== SIDEBAR ===== */
+.dashboard-sidebar{
+  width:240px;
+  background:#0b0f14;
+  color:#fff;
+  padding:30px 20px;
+}
+.dashboard-sidebar .site-logo img {
+  width: 180px;
+}
+.dashboard-menu a{
+  display:block;
+  padding:12px 15px;
+  margin-bottom:10px;
+  color:#cfd3da;
+  text-decoration:none;
+  border-radius:6px;
+}
+.dashboard-menu a:hover,
+.dashboard-menu a.active{
+  background:#1f2937;
+  color:#fff;
+}
+
+/* ===== MAIN ===== */
+.dashboard-main{
+  flex:1;
+  padding:30px;
+}
+
+/* ===== HEADER ===== */
+.dashboard-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:30px;
+}
+.dashboard-header h1{
+  font-size:26px;
+}
+.add-btn{
+  background:#3b82f6;
+  color:#fff;
+  border:none;
+  padding:10px 18px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+/* ===== TABLE ===== */
+.table-responsive{
+  width:100%;
+  overflow-x:auto;
+}
+.dashboard-table{
+  width:100%;
+  min-width:900px;
+  border-collapse:collapse;
+}
+.dashboard-table th,
+.dashboard-table td{
+  padding:12px;
+  border-bottom:1px solid #eee;
+  text-align:left;
+  font-size:14px;
+}
+.dashboard-table th{
+  background:#f8f9fb;
+}
+.status{
+  padding:5px 10px;
+  border-radius:12px;
+  font-size:12px;
+  color:#fff;
+}
+.confirmed{background:#16a34a;}
+.pending{background:#f59e0b;}
+.cancelled{background:#dc2626;}
+
+/* ===== MOBILE MENU ===== */
+.mobile-header{
+  display:none;
+  background:#0b0f14;
+  color:#fff;
+  padding:15px;
+  justify-content:space-between;
+  align-items:center;
+}
+.menu-toggle{
+  font-size:22px;
+}
+@media(max-width:992px){
+  .dashboard-wrapper{
+    flex-direction:column;
+  }
+  .dashboard-sidebar{
+    width:100%;
+    display:none;
+  }
+  .dashboard-sidebar.active{
+    display:block;
+  }
+  .mobile-header{
+    display:flex;
+  }
+  .dashboard-main{
+    padding:20px;
+  }
+  .dashboard-header{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:10px;
+  }
+}
+.dashboard-sidebar .site-logo img {
+  width: 80px;
+}
+@media(max-width:992px){
+
+  .dashboard-sidebar{
+    position: fixed;
+    top: 0;
+    left: -260px;   /* hide outside screen */
+    width: 240px;
+    height: 100%;
+    z-index: 1000;
+    transition: 0.3s ease;
+  }
+
+  .dashboard-sidebar.active{
+    left: 0;   /* slide inside */
+  }
+
+  .dashboard-wrapper{
+    flex-direction: column;
+  }
+
+}
+.dashboard-sidebar .site-logo {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.dashboard-sidebar .site-logo a {
+  display: inline-block;
+}
+
+.dashboard-sidebar .site-logo img {
+  width: 80px;
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+</style>
+</head>
+
+<body>
+
+<!-- MOBILE HEADER -->
+<div class="mobile-header">
+  <strong>Surf Admin</strong>
+  <span class="menu-toggle" onclick="document.querySelector('.dashboard-sidebar').classList.toggle('active')">☰</span>
+</div>
+
+<div class="dashboard-wrapper">
+
+  <!-- SIDEBAR -->
+  <aside class="dashboard-sidebar">
+    <div class="site-logo">
+      <a href="index.html">
+        <img src="images/surf-logo.png" alt="Surf Logo">
+      </a>
+    </div>
+    <nav class="dashboard-menu">
+      <a href="dashboard.html"><i class="fa fa-dashboard"></i> Dashboard</a>
+      <a href="inventory.html"><i class="fa fa-cubes"></i> Inventory</a>
+      <a href="bookings.html" class="active"><i class="fa fa-calendar-check-o"></i> Bookings</a>
+      <a href="damage-waiver.html"><i class="fa fa-shield"></i> Damage Waiver</a>
+      <a href="customers.html"><i class="fa fa-users"></i> Customers</a>
+      <a href="logout.html"><i class="fa fa-bar-chart"></i> Logout</a>
+    </nav>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="dashboard-main">
+    <div class="dashboard-header">
+      <h1>Online Bookings</h1>
+      <button class="add-btn"><i class="fa fa-plus"></i> Add Booking</button>
+    </div>
+
+    <div class="table-responsive">
+      <table class="dashboard-table">
+        <thead>
+          <tr>
+            <th>Booking ID</th>
+            <th>Customer Name</th>
+            <th>Surfboard</th>
+            <th>Pickup Date</th>
+            <th>Return Date</th>
+            <th>Total Days</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>#BK1001</td>
+            <td>John Miller</td>
+            <td>Pro Surfboard S7</td>
+            <td>10 Feb 2026</td>
+            <td>13 Feb 2026</td>
+            <td>3</td>
+            <td>$75</td>
+            <td><span class="status confirmed">Confirmed</span></td>
+            <td><i class="fa fa-eye"></i> | <i class="fa fa-edit"></i></td>
+          </tr>
+          <tr>
+            <td>#BK1002</td>
+            <td>Sarah Lee</td>
+            <td>Wave Rider Pro</td>
+            <td>15 Feb 2026</td>
+            <td>17 Feb 2026</td>
+            <td>2</td>
+            <td>$60</td>
+            <td><span class="status pending">Pending</span></td>
+            <td><i class="fa fa-eye"></i> | <i class="fa fa-edit"></i></td>
+          </tr>
+          <tr>
+            <td>#BK1003</td>
+            <td>Daniel Cruz</td>
+            <td>Classic Longboard</td>
+            <td>18 Feb 2026</td>
+            <td>20 Feb 2026</td>
+            <td>2</td>
+            <td>$70</td>
+            <td><span class="status cancelled">Cancelled</span></td>
+            <td><i class="fa fa-eye"></i> | <i class="fa fa-edit"></i></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+</div>
+
+
+
+</body>
+</html>
