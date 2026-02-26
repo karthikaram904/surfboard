@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Inventory Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+/* ===== RESET ===== */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, Helvetica, sans-serif;
+}
+body{
+  background:#f4f6f9;
+  color:#333;
+}
+
+/* ===== LAYOUT ===== */
+.dashboard-wrapper{
+  display:flex;
+  min-height:100vh;
+}
+
+/* ===== SIDEBAR ===== */
+.dashboard-sidebar{
+  width:240px;
+  background:#0b0f14;
+  color:#fff;
+  padding:30px 20px;
+}
+.dashboard-sidebar .site-logo img {
+  width: 80px;
+}
+.dashboard-sidebar h2{
+  text-align:center;
+  margin-bottom:40px;
+}
+.dashboard-menu a{
+  display:block;
+  padding:12px 15px;
+  margin-bottom:10px;
+  color:#cfd3da;
+  text-decoration:none;
+  border-radius:6px;
+}
+.dashboard-menu a:hover,
+.dashboard-menu a.active{
+  background:#1f2937;
+  color:#fff;
+}
+
+/* ===== MAIN ===== */
+.dashboard-main{
+  flex:1;
+  padding:30px;
+}
+
+/* ===== HEADER ===== */
+.dashboard-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:30px;
+}
+.dashboard-header h1{
+  font-size:26px;
+}
+.add-btn{
+  background:#3b82f6;
+  color:#fff;
+  border:none;
+  padding:10px 18px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+/* ===== TABLE ===== */
+.table-responsive{
+  width:100%;
+  overflow-x:auto;
+}
+.dashboard-table{
+  width:100%;
+  min-width:900px;
+  border-collapse:collapse;
+}
+.dashboard-table th,
+.dashboard-table td{
+  padding:12px;
+  border-bottom:1px solid #eee;
+  text-align:left;
+  font-size:14px;
+}
+.dashboard-table th{
+  background:#f8f9fb;
+}
+.status{
+  padding:5px 10px;
+  border-radius:12px;
+  font-size:12px;
+  color:#fff;
+}
+.in-stock{background:#16a34a;}
+.low-stock{background:#f59e0b;}
+.out-stock{background:#dc2626;}
+
+/* ===== MOBILE MENU ===== */
+.mobile-header{
+  display:none;
+  background:#0b0f14;
+  color:#fff;
+  padding:15px;
+  justify-content:space-between;
+  align-items:center;
+}
+.menu-toggle{
+  font-size:22px;
+}
+@media(max-width:992px){
+  .dashboard-wrapper{
+    flex-direction:column;
+  }
+  
+  .mobile-header{
+    display:flex;
+  }
+  .dashboard-main{
+    padding:20px;
+  }
+  .dashboard-header{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:10px;
+  }
+}
+@media(max-width:992px){
+
+  .dashboard-sidebar{
+    position: fixed;
+    top: 0;
+    left: -260px;
+    width: 240px;
+    height: 100%;
+    background:#0b0f14;
+    z-index: 1000;
+    transition: 0.3s ease;
+  }
+
+  .dashboard-sidebar.active{
+    left: 0;   /* slide inside */
+  }
+
+  .dashboard-wrapper{
+    flex-direction: column;
+  }
+
+}
+.dashboard-sidebar .site-logo {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.dashboard-sidebar .site-logo a {
+  display: inline-block;
+}
+
+.dashboard-sidebar .site-logo img {
+  width: 80px;
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+</style>
+</head>
+
+<body>
+
+<!-- MOBILE HEADER -->
+<div class="mobile-header">
+  <strong>Surf Admin</strong>
+  <span class="menu-toggle" onclick="document.querySelector('.dashboard-sidebar').classList.toggle('active')">☰</span>
+</div>
+
+<div class="dashboard-wrapper">
+
+  <!-- SIDEBAR -->
+  <aside class="dashboard-sidebar">
+    <div class="site-logo">
+      <a href="index.html">
+        <img src="images/surf-logo.png" alt="Surf Logo">
+      </a>
+    </div>
+    <nav class="dashboard-menu">
+      <a href="dashboard.html"><i class="fa fa-dashboard"></i> Dashboard</a>
+      <a href="inventory.html" class="active"><i class="fa fa-cubes"></i> Inventory</a>
+      <a href="bookings.html"><i class="fa fa-calendar-check-o"></i> Bookings</a>
+      <a href="damage-waiver.html"><i class="fa fa-shield"></i> Damage Waiver</a>
+      <a href="customers.html"><i class="fa fa-users"></i> Customers</a>
+      <a href="logout.html"><i class="fa fa-bar-chart"></i> Logout</a>
+    </nav>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="dashboard-main">
+    <div class="dashboard-header">
+      <h1>Inventory Management</h1>
+      <button class="add-btn"><i class="fa fa-plus"></i> Add Surfboard</button>
+    </div>
+
+    <div class="table-responsive">
+      <table class="dashboard-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Board Name</th>
+            <th>Type</th>
+            <th>Length</th>
+            <th>Daily Price</th>
+            <th>Stock</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>#SB001</td>
+            <td>Pro Surfboard S7</td>
+            <td>All-Round</td>
+            <td>7 ft</td>
+            <td>$25</td>
+            <td>12</td>
+            <td><span class="status in-stock">In Stock</span></td>
+            <td><i class="fa fa-edit"></i> | <i class="fa fa-trash"></i></td>
+          </tr>
+          <tr>
+            <td>#SB002</td>
+            <td>Wave Rider Pro</td>
+            <td>Shortboard</td>
+            <td>6.4 ft</td>
+            <td>$30</td>
+            <td>4</td>
+            <td><span class="status low-stock">Low Stock</span></td>
+            <td><i class="fa fa-edit"></i> | <i class="fa fa-trash"></i></td>
+          </tr>
+          <tr>
+            <td>#SB003</td>
+            <td>Classic Longboard</td>
+            <td>Longboard</td>
+            <td>9 ft</td>
+            <td>$35</td>
+            <td>0</td>
+            <td><span class="status out-stock">Out of Stock</span></td>
+            <td><i class="fa fa-edit"></i> | <i class="fa fa-trash"></i></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+</div>
+
+
+</body>
+</html>

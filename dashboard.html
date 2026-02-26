@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Surf Rental Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="images/favicon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+/* ===== RESET ===== */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, Helvetica, sans-serif;
+}
+body{
+  background:#f4f6f9;
+  color:#333;
+}
+.dashboard-sidebar .site-logo {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.dashboard-sidebar .site-logo a {
+  display: inline-block;
+}
+
+.dashboard-sidebar .site-logo img {
+  width: 80px;
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+
+/* ===== LAYOUT ===== */
+.dashboard-wrapper{
+  display:flex;
+  min-height:100vh;
+}
+
+/* ===== SIDEBAR ===== */
+.dashboard-sidebar{
+  width:240px;
+  background:#0b0f14;
+  color:#fff;
+  padding:30px 20px;
+}
+.dashboard-sidebar h2{
+  text-align:center;
+  margin-bottom:40px;
+}
+.dashboard-menu a{
+  display:block;
+  padding:12px 15px;
+  margin-bottom:10px;
+  color:#cfd3da;
+  text-decoration:none;
+  border-radius:6px;
+}
+.dashboard-menu a:hover,
+.dashboard-menu a.active{
+  background:#1f2937;
+  color:#fff;
+}
+
+/* ===== MAIN ===== */
+.dashboard-main{
+  flex:1;
+  padding:30px;
+}
+
+/* ===== HEADER ===== */
+.dashboard-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:30px;
+}
+.dashboard-header h1{
+  font-size:26px;
+}
+.admin-badge{
+  background:#0b5ed7;
+  color:#fff;
+  padding:8px 16px;
+  border-radius:20px;
+  font-size:14px;
+}
+
+/* ===== STATS ===== */
+.dashboard-stats{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+  gap:20px;
+  margin-bottom:40px;
+}
+.stat-box{
+  background:#fff;
+  padding:25px;
+  border-radius:12px;
+  box-shadow:0 5px 20px rgba(0,0,0,0.05);
+}
+.stat-box h3{
+  font-size:15px;
+  margin-bottom:10px;
+  color:#666;
+}
+.stat-box span{
+  font-size:28px;
+  font-weight:bold;
+}
+
+/* ===== SECTION ===== */
+.dashboard-section{
+  background:#fff;
+  border-radius:12px;
+  padding:25px;
+  margin-bottom:30px;
+  box-shadow:0 5px 20px rgba(0,0,0,0.05);
+}
+.dashboard-section h2{
+  margin-bottom:20px;
+}
+
+/* ===== TABLE ===== */
+.table-responsive{
+  width:100%;
+  overflow-x:auto;
+}
+.dashboard-table{
+  width:100%;
+  min-width:600px;
+  border-collapse:collapse;
+}
+.dashboard-table th,
+.dashboard-table td{
+  padding:12px;
+  border-bottom:1px solid #eee;
+  text-align:left;
+  font-size:14px;
+}
+.dashboard-table th{
+  background:#f8f9fb;
+}
+.status{
+  padding:5px 10px;
+  border-radius:12px;
+  font-size:12px;
+}
+.available{background:#d1fae5;color:#065f46;}
+.rented{background:#fee2e2;color:#991b1b;}
+.badge{
+  background:#fde68a;
+  color:#92400e;
+  padding:4px 10px;
+  border-radius:12px;
+  font-size:12px;
+}
+
+/* ===== FOOTER ===== */
+.dashboard-footer{
+  text-align:center;
+  color:#777;
+  font-size:13px;
+  margin-top:40px;
+}
+
+/* ===== MOBILE MENU ===== */
+.mobile-header{
+  display:none;
+  background:#0b0f14;
+  color:#fff;
+  padding:15px;
+  justify-content:space-between;
+  align-items:center;
+}
+.menu-toggle{
+  font-size:22px;
+}
+@media(max-width:575px){
+   .page-header{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:10px;
+  }
+}
+/* ===== RESPONSIVE ===== */
+@media(max-width:992px){
+  .dashboard-wrapper{
+    flex-direction:column;
+  }
+
+  .dashboard-sidebar{
+    width:100%;
+    display:none;
+  }
+
+  .dashboard-sidebar.active{
+    display:block;
+  }
+
+  .mobile-header{
+    display:flex;
+  }
+
+  .dashboard-main{
+    padding:20px;
+  }
+
+  .dashboard-header{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:10px;
+  }
+}
+.dashboard-sidebar .site-logo img {
+  width: 80px;
+}
+@media(max-width:992px){
+
+  .dashboard-sidebar{
+    position: fixed;
+    top: 0;
+    left: -260px;   /* hide outside screen */
+    width: 240px;
+    height: 100%;
+    z-index: 1000;
+    transition: 0.3s ease;
+  }
+
+  .dashboard-sidebar.active{
+    left: 0;   /* slide inside */
+  }
+
+  .dashboard-wrapper{
+    flex-direction: column;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- MOBILE HEADER -->
+<div class="mobile-header">
+  <strong>Surf Admin</strong>
+  <span class="menu-toggle" onclick="document.querySelector('.dashboard-sidebar').classList.toggle('active')">☰</span>
+</div>
+
+<div class="dashboard-wrapper">
+
+  <!-- SIDEBAR -->
+  <aside class="dashboard-sidebar">
+    <div class="site-logo">
+    <a href="index.html">
+        <img src="images/surf-logo.png" alt="Surf Logo">
+    </a>
+</div>
+    <nav class="dashboard-menu">
+  <a href="dashboard.html" class="active">
+    <i class="fa fa-dashboard"></i> Dashboard
+  </a>
+
+  <a href="inventory.html">
+    <i class="fa fa-cubes"></i> Inventory
+  </a>
+
+  <a href="bookings.html">
+    <i class="fa fa-calendar-check-o"></i> Bookings
+  </a>
+
+  <a href="damage-waiver.html">
+    <i class="fa fa-shield"></i> Damage Waiver
+  </a>
+
+  <a href="customers.html">
+    <i class="fa fa-users"></i> Customers
+  </a>
+
+  <a href="logout.html">
+    <i class="fa fa-bar-chart"></i> Logout
+  </a>
+</nav>
+
+  </aside>
+
+  <!-- MAIN -->
+  <main class="dashboard-main">
+
+    <div class="dashboard-header">
+      <h1>Dashboard Overview</h1>
+      <div class="admin-badge">Admin</div>
+    </div>
+
+    <!-- STATS -->
+    <div class="dashboard-stats">
+      <div class="stat-box"><h3>Total Surfboards</h3><span>48</span></div>
+      <div class="stat-box"><h3>Active Rentals</h3><span>16</span></div>
+      <div class="stat-box"><h3>Today Bookings</h3><span>9</span></div>
+      <div class="stat-box"><h3>Damage Waivers</h3><span>12</span></div>
+    </div>
+
+    <!-- INVENTORY -->
+    <section class="dashboard-section">
+      <h2>Inventory Management</h2>
+      <div class="table-responsive">
+        <table class="dashboard-table">
+          <tr><th>Board</th><th>Type</th><th>Status</th></tr>
+          <tr><td>Pro Surfboard S7</td><td>All-Round</td><td><span class="status available">Available</span></td></tr>
+          <tr><td>Wave Rider Pro</td><td>Shortboard</td><td><span class="status rented">Rented</span></td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- BOOKINGS -->
+    <section class="dashboard-section">
+      <h2>Online Rental Bookings</h2>
+      <div class="table-responsive">
+        <table class="dashboard-table">
+          <tr><th>Customer</th><th>Board</th><th>Date</th></tr>
+          <tr><td>Arun</td><td>Classic Longboard</td><td>Today</td></tr>
+          <tr><td>Karthik</td><td>Pro Surfboard S7</td><td>Tomorrow</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- DAMAGE WAIVER -->
+    <section class="dashboard-section">
+      <h2>Damage Waiver</h2>
+      <div class="table-responsive">
+        <table class="dashboard-table">
+          <tr><th>Customer</th><th>Board</th><th>Status</th></tr>
+          <tr><td>Riya</td><td>Wave Rider Pro</td><td><span class="badge">Included</span></td></tr>
+          <tr><td>Sam</td><td>Classic Longboard</td><td><span class="badge">Included</span></td></tr>
+        </table>
+      </div>
+    </section>
+
+    <div class="dashboard-footer">
+      © 2026 Surfboard Rental Dashboard
+    </div>
+
+  </main>
+
+</div>
+
+</body>
+</html>
