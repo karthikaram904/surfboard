@@ -3097,6 +3097,6 @@ html, body {
 }
 @media (max-width: 571px) {
   .trip-form {
-    margin-top: 0px !important;
+    margin-top: 250px !important;
   }
 }
