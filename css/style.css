@@ -3095,3 +3095,8 @@ html, body {
 .social-icons a:hover{
   background:#007BFF;
 }
+@media (max-width: 571px) {
+  .trip-form {
+    margin-top: 0px !important;
+  }
+}
